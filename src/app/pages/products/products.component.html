@@ -1,0 +1,107 @@
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Add product</h5>
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close"
+                    id="closeModal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <label class="form-label">Name</label>
+                        <input type="text" formControlName="nombre" class="form-control"
+                            placeholder="Enter product name">
+                        <div [hidden]="(productForm.get('nombre')?.valid || productForm.get('nombre')?.untouched) || nombreCloseBtn"
+                            class="alert alert-success p-2 mt-2">
+                            <span *ngIf="productForm.get('nombre')?.errors?.['required']">Name is required.</span>
+                            <i class="fa fa-times" (click)="nombreCloseBtnClick()"
+                                style="float: right; margin-top: 4px; cursor: pointer;"></i>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Price</label>
+                        <input type="number" formControlName="precio" class="form-control"
+                            placeholder="Enter product price">
+                        <div [hidden]="(productForm.get('precio')?.valid || productForm.get('precio')?.untouched) || precioCloseBtn"
+                            class="alert alert-success p-2 mt-2">
+                            <span *ngIf="productForm.get('precio')?.errors?.['required']">Price is required.</span>
+                            <i class="fa fa-times" (click)="precioCloseBtnClick()"
+                                style="float: right; margin-top: 4px; cursor: pointer;"></i>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Image</label>
+                        <div class="uploadingImage" *ngIf="upladingImage">
+                            <div class="spinner-border text-success spinnerSize" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <input type="file" #fileInput class="form-control" accept="image/*"
+                            (change)="uploadImage($event)" [disabled]="upladingImage">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="productForm.invalid || disableForm || upladingImage" type="submit"
+                        class="btn btn-success btn-lg" style="font-size: 16px;">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+<div class="card mt-5 mb-4 mt-3-movil mb-3-movil">
+    <div class="card-body p-4">
+        <div class="navbar">
+            <div class="me-auto">
+                <h5 class="card-title">
+                    Products
+                    <span class="badge rounded-pill bg-success" *ngIf="products?.length">{{products?.length}}</span>
+                </h5>
+            </div>
+            <div class="ms-auto">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal"
+                    (click)="cleanSelectedProduct()">
+                    <i class="fa fa-plus-circle"></i> Add
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4 pb-1 mb-3-movil">
+    <div class="col-md-3" *ngFor="let product of products">
+        <div class="card mb-4 mt-3-movil mb-3-movil">
+            <div class="edit-delete">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal"
+                    (click)="selectProduct(product)" *ngIf="userEmail == product.createBy">
+                    <i class="fa fa-edit cursor-pointer"></i>
+                </button>
+                <button type="button" class="btn btn-success" (click)="deleteProduct(product)"
+                    *ngIf="userEmail == product.createBy">
+                    <i class="fa fa-trash-alt cursor-pointer"></i>
+                </button>
+            </div>
+            <div class="card-img-fixed">
+                <img src="https://ghzmbjgiozwjzxidhoxo.supabase.co/storage/v1/object/public/ProductImages/{{product?.image}}"
+                    class="" alt="" *ngIf="product.image">
+                <img src="https://ghzmbjgiozwjzxidhoxo.supabase.co/storage/v1/object/sign/DefaultImages/box.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJEZWZhdWx0SW1hZ2VzL2JveC5wbmciLCJpYXQiOjE3MTIwMTA2MzYsImV4cCI6MjAyNzM3MDYzNn0.WsIVwBp5CZBe9s6_O9zW9y4oYyn-tqbhB1R9fMuhCls&t=2024-04-01T22%3A30%3A37.194Z"
+                    class="" alt="" *ngIf="!product.image">
+            </div>
+            <div class="card-body p-4">
+                <h5 class="card-title">
+                    {{product?.nombre}}
+                </h5>
+                <div class="card-text">
+                    {{product?.precio | currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

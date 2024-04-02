@@ -1,0 +1,64 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+
+        <div class="card mt-5 mt-3-movil">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center">
+                    <i class="fa {{options.id=='Sign In'?'fa-sign-in-alt':'fa-address-card'}}"></i> {{options.id}}
+                </h3>
+                <section>
+
+                    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" formControlName="email" class="form-control"
+                                placeholder="Enter your email">
+                            <div [hidden]="(authForm.get('email')?.valid || authForm.get('email')?.untouched) || emailCloseBtn"
+                                class="alert alert-success p-2 mt-2">
+                                <span *ngIf="authForm.get('email')?.errors?.['required']">Email is required.</span>
+                                <span *ngIf="authForm.get('email')?.errors?.['email']">The email must be valid.</span>
+                                <i class="fa fa-times" (click)="emailCloseBtnClick()"
+                                    style="float: right; margin-top: 4px; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="pb-2 mb-4">
+                            <label class="form-label">Password</label>
+                            <input type="password" formControlName="password" class="form-control"
+                                placeholder="Enter your password">
+                            <div [hidden]="(authForm.get('password')?.valid || authForm.get('password')?.untouched) || passwordCloseBtn"
+                                class="alert alert-success p-2 mt-2">
+                                <span *ngIf="authForm.get('password')?.errors?.['required']">Password is
+                                    required.</span>
+                                <i class="fa fa-times" (click)="passwordCloseBtnClick()"
+                                    style="float: right; margin-top: 4px; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <button [disabled]="authForm.invalid || disableForm" type="submit"
+                                class="btn btn-success w-100">
+                                {{options.id}}
+                            </button>
+                        </div>
+                        <div>
+                            <ng-container *ngIf="options.id=='Sign In'; else showSignInLinkTemplate">
+                                <div>
+                                    <a [routerLink]="['/sign-up']" class="text-white">Create new account</a>
+                                </div>
+                            </ng-container>
+                            <ng-template #showSignInLinkTemplate>
+                                <div>
+                                    <a [routerLink]="['/sign-in']" class="text-white">Already have an account?</a>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="card-footer p-3">
+                <button class="btn btn-success w-100" (click)="signInWithGitHub()"><i class="fab fa-github"></i>
+                    {{options.id}} with GitHub</button>
+            </div>
+        </div>
+
+    </div>
+</div>

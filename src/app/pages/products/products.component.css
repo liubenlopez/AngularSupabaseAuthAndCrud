@@ -1,0 +1,85 @@
+.navbar h5 {
+    margin-bottom: 0;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.edit-delete {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    color: #3ecf8e;
+}
+
+.edit-delete button {
+    margin-right: 5px;
+}
+
+.card-img-fixed {
+    overflow: hidden;
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img-fixed img {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.uploadingImage {
+    position: absolute;
+    text-align: right;
+    width: 100%;
+    padding-right: 2px;
+    margin-top: -2px;
+    left: 0;
+    height: 40px;
+    padding-right: 1.5rem;
+    padding-top: 8px;
+}
+
+.uploadingImage .spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+@media (max-width: 575.98px) {
+    .card-img-fixed {
+        height: 400px;
+    }
+}
+
+@media (min-width: 576px) {
+    .card-img-fixed {
+        height: 500px;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-img-fixed {
+        height: 150px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-img-fixed {
+        height: 200px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-img-fixed {
+        height: 240px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .card-img-fixed {
+        height: 300px;
+    }
+}

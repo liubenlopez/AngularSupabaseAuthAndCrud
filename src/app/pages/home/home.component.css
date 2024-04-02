@@ -1,0 +1,16 @@
+.img-icon {
+    width: 25px;
+}
+
+.img-user {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.redes {
+    color: #3ecf8e;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 20px;
+}
